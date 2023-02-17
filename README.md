@@ -1,10 +1,12 @@
-** CURRENT TAST **
+## CURRENT TASK
 
-Sketching wire frame off screen
+CONSTRUCTING AND TESTING FUNCTIONS FOR WAGERING
 
 ---
 
-USER STORY
+---
+
+## USER STORY
 
 ---
 
@@ -68,7 +70,9 @@ Button -> Play again? -> returns to wager screen.
 
 BRB taking 20 min power nap till 11:15
 
-METHOD APPROACH
+---
+
+## METHOD APPROACH/ PSEUDOCODE
 
 Main ->
 run wager system
@@ -85,20 +89,18 @@ button 3 = 100
 
 Attach event listener to class of buttons
 function add value(buttonVal)
-if button 1 = button 1 + current balance
-
-if win, current value + wagerValue
-if lose, current value - wagerValue
+if wagertotal < current balance,
+button 1 = button 1 + current balance
 
 Game System ->
 run card system
 run game
 
 const cards =
-[DIAMONDS : [1,2,3,4,5,6,7,8,10,11,12,13]
-[CLUBS : [1,2,3,4,5,6,7,8,10,11,12,13]
-[HEARTS : [1,2,3,4,5,6,7,8,10,11,12,13]
-[SPADES : [1,2,3,4,5,6,7,8,10,11,12,13]
+[DIAMONDS : [1,2,3,4,5,6,7,8,10,J,Q,K]
+[CLUBS : [1,2,3,4,5,6,7,8,10,J,Q,K]
+[HEARTS : [1,2,3,4,5,6,7,8,10,J,Q,K]
+[SPADES : [1,2,3,4,5,6,7,8,10,J,Q,K]
 
 const dealerHand = []
 const userHand = []
@@ -109,5 +111,50 @@ const userHand = []
     dealCard() = pick random value from cardsGame. pop value out of array.
 
     dealCard() X 4
+    push 2 cards into userHand and dealerHand
 
-    Compute() = Detects for instant win from dealer draw and user draw.
+    ComputeBlackJack() = Detects for instant win from dealer draw and user draw.
+
+    dealerHand -> add all values in array
+    userhand -> add all values in array
+
+
+
+        if
+        userHand.value === J||Q||K + 1
+        goes to userWIN function
+
+        else if
+        dealerHand.value === J||Q||K + 1
+        goes to dealerWin function
+
+        else if
+        userHand.value >= 16 <22
+        user goes to hit() and stand()
+
+        else if userHand.value <15
+        user prompted hit()
+
+functionresethands()
+userHand = []
+dealerHand = []
+
+function hit()
+push dealCard() to userHand()
+computeBlackJack()
+
+function stand()
+runs function W/L
+
+function userWin()
+display user win
+wager display shows "+"
+current balance = wagerValue + currentBalance
+
+    function playAgain():
+
+function dealerWin()
+display dealer win
+wager display shows "-"
+current balance = currentBalance - wagerValue
+if currentBalance <= 0 , game ends (to be decided later)
