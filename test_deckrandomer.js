@@ -10,23 +10,30 @@ function selectRandomCard() {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  let cardSuite = getRandomInt(1, 4);
-  let cardType = getRandomInt(1, 13);
+  function suiteAndNumber() {
+    let cardSuite = getRandomInt(1, 4);
+    let cardType = getRandomInt(1, 13);
 
-  if (cardSuite === 0) {
-    currentSuite = "diamonds";
-  } else if (cardSuite === 1) {
-    currentSuite = "hearts";
-  } else if (cardSuite === 2) {
-    currentSuite = "clubs";
-  } else {
-    currentSuite = "spades";
+    if (cardSuite === 0) {
+      currentSuite = "diamonds";
+    } else if (cardSuite === 1) {
+      currentSuite = "hearts";
+    } else if (cardSuite === 2) {
+      currentSuite = "clubs";
+    } else {
+      currentSuite = "spades";
+    }
+
+    randomcard = cards[cardSuite][cardType];
+    cards[cardSuite].splice(cardType, 1);
+    // console.log(cards[cardSuite][cardType] + "  " + currentSuite);
+    console.log(randomcard + "  " + currentSuite);
+    return;
   }
-
-  console.log(cards[cardSuite][cardType] + "  " + currentSuite);
-  console.log("=============");
-  cards[cardSuite].splice(cardType, 1);
-  console.log(cards);
+  suiteAndNumber();
+  console.log(randomcard + currentSuite);
 }
-
 selectRandomCard();
+
+// const userHand = [];
+// const dealerHand = [];
