@@ -5,7 +5,7 @@ let cards = [
   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "j", "q", "k"],
 ];
 
-let userHand = [2];
+let userHand = [];
 let dealerHand = [];
 
 function selectRandomCard() {
@@ -17,19 +17,6 @@ function selectRandomCard() {
     cardSuite = getRandomInt(0, 3);
     cardType = getRandomInt(0, 12);
     cards[cardSuite].splice(cardType, 1);
-
-    // if (cardSuite === 0) {
-    //   currentSuite = "diamonds";
-    // } else if (cardSuite === 1) {
-    //   currentSuite = "hearts";
-    // } else if (cardSuite === 2) {
-    //   currentSuite = "clubs";
-    // } else {
-    //   currentSuite = "spades";
-    // }
-    // randomcard = cards[cardSuite][cardType];
-
-    //console.log(randomcard + "  " + currentSuite);
     return { cardSuite, cardType };
   }
   suiteAndNumber();
