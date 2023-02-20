@@ -21,22 +21,41 @@ function renderWager() {
   //   let currentWager = 0;
   for (let i = 1; i <= 4; i++) {
     let wagerButton = document.createElement("button");
-    wagerButton.setAttribute("button" + [i], [i] * 25);
+    wagerButton.setAttribute("id", [i] * 25);
     wagerButton.innerText = "25" * [i];
     let buttonClass = document.querySelector(".wager");
     buttonClass.appendChild(wagerButton);
   }
 
-  wagerButtonSelect25 = document.querySelector("button"); // <--------
-  wagerButtonSelect50 = document.querySelector("button");
-  wagerButtonSelect75 = document.querySelector("button");
-  wagerButtonSelect100 = document.querySelector("button");
-  // wagerButtonSelect25.addEventListener("click", thisWager);
-  // wagerButtonSelect50.addEventListener("click", thisWager);
-  console.log(wagerButtonSelect25);
+  wagerButtonSelect25 = document.getElementById("25"); // <--------
+  wagerButtonSelect50 = document.getElementById("50");
+  wagerButtonSelect75 = document.getElementById("75");
+  wagerButtonSelect100 = document.getElementById("100");
+  wagerButtonSelect25.addEventListener("click", thisWager25);
+  wagerButtonSelect50.addEventListener("click", thisWager50);
+  wagerButtonSelect75.addEventListener("click", thisWager75);
+  wagerButtonSelect100.addEventListener("click", thisWager100);
 
-  function thisWager() {
+  function thisWager25() {
     currentWagerArray.push(25);
+    updateTotalWager();
+    console.log(currentWagerArray);
+  }
+
+  function thisWager50() {
+    currentWagerArray.push(50);
+    updateTotalWager();
+    console.log(currentWagerArray);
+  }
+
+  function thisWager75() {
+    currentWagerArray.push(75);
+    updateTotalWager();
+    console.log(currentWagerArray);
+  }
+
+  function thisWager100() {
+    currentWagerArray.push(100);
     updateTotalWager();
     console.log(currentWagerArray);
   }
@@ -52,14 +71,6 @@ function renderWager() {
     console.log(sum);
   }
 }
-
-// console.log(wagerTotal);
-
-//   let wagerButtonSelect25 = 25;
-//   let wagerButtonSelect50 = 50;
-//   let wagerButtonSelect75 = 75;
-//   let wagerButtonSelect100 = 100;
-
 renderWager();
 
 function renderStart() {
