@@ -90,21 +90,18 @@ let cardDeck = [
 
 let userHand = [];
 let dealerHand = [];
-
-// let addCardToUser = document.querySelector(".userhand");
-// userHit = document.createElement("button");
-// addCardToUser.appendChild(userHit);
-// userHit.innerText = "HIT";
-// addCardToUser.addEventListener("click", dealToUser);
-
-// function userStart() {
-//   dealToUser();
-//   dealToUser();
-// }
-
-// userStart();
-
 let sum = 0;
+let dealerSum = 0;
+
+displayPlayerScore = document.createElement("h1");
+let playerCurrentScore = document.querySelector(".userhand");
+playerCurrentScore.appendChild(displayPlayerScore);
+displayPlayerScore.innerText = " ";
+
+displayDealerScore = document.createElement("h1");
+let dealerCurrentScore = document.querySelector(".dealerhand");
+dealerCurrentScore.appendChild(displayDealerScore);
+displayDealerScore.innerText = " ";
 
 function calculateValue() {
   if (cardType === "Jack" || cardType === "Queen" || cardType === "King") {
@@ -114,6 +111,7 @@ function calculateValue() {
     console.log(sum);
   } else if (cardType === "Ace") {
     newCardType = 1;
+    sum += newCardType;
     console.log("ACE CONVERTED!");
     console.log(sum);
   } else {
@@ -123,27 +121,84 @@ function calculateValue() {
   return sum;
 }
 
-function RenderUserHit() {
-  let addCardToUser = document.querySelector(".userhand");
+function calculateDealerValue() {
+  if (cardType === "Jack" || cardType === "Queen" || cardType === "King") {
+    newCardType = 10;
+    dealerSum += newCardType;
+    console.log("PICTURE CONVERTED!");
+    console.log(dealerSum);
+  } else if (cardType === "Ace") {
+    newCardType = 1;
+    dealerSum += 1;
+    console.log("ACE CONVERTED!");
+    console.log(dealerSum);
+  } else {
+    dealerSum += cardType;
+    console.log(dealerSum);
+  }
+  return dealerSum;
+}
+
+function renderUserHitButton() {
+  let addCardToUser = document.querySelector(".controlButton");
   userHit = document.createElement("button");
   addCardToUser.appendChild(userHit);
   userHit.innerText = "HIT";
   addCardToUser.addEventListener("click", dealToUser);
 }
-
-RenderUserHit();
+// ^ call this function to allow user to hit
 
 function dealToUser() {
   selectRandomCard();
   currentcard = cardSuite + "---" + cardType;
   calculateValue();
-  updatePlayerScore();
   renderUserNewCard();
+  updatePlayerScore();
 }
 
+function renderUserStand() {
+  let userStopCardDraw = document.querySelector(".controlButton2");
+  userStand = document.createElement("button");
+  userStopCardDraw.appendChild(userStand);
+  userStand.innerText = "STAND";
+  userStand.addEventListener("click", dealerTurn);
+  userStand.addEventListener("click", removeHit);
+}
+
+function removeHit() {
+  userHit.remove();
+}
+
+// can add intermediatry to switch off user hit button + start function to keep running dealerTurn();
+// until dealerSum > Sum , player lose or dealer Sum > 21 player wins
+
+function dealerTurn() {
+  selectRandomCard();
+  currentcard = cardSuite + "---" + cardType;
+  calculateDealerValue();
+  updateDealerScore();
+  renderDealerNewCard();
+}
+
+// ^ call this function to deal card to user
+function dealToDealer() {
+  selectRandomCard();
+  currentcard = cardSuite + "---" + cardType;
+  calculateDealerValue();
+  updateDealerScore();
+  renderDealerNewCard();
+}
+// ^ call this function to deal card to dealer
 function renderUserNewCard() {
   newcard = document.createElement("h3");
   let newCardUser = document.querySelector(".userhand");
+  newCardUser.appendChild(newcard);
+  newcard.innerText = currentcard; //<-- update this number to card dealt
+}
+
+function renderDealerNewCard() {
+  newcard = document.createElement("h3");
+  let newCardUser = document.querySelector(".dealerhand");
   newCardUser.appendChild(newcard);
   newcard.innerText = currentcard; //<-- update this number to card dealt
 }
@@ -173,17 +228,55 @@ function selectRandomCard() {
     cardType = "Queen";
   } else if (cardType === 13) {
     cardType = "King";
-  } else if (cardType === 1) {
+  } else if (cardType === 0) {
     cardType = "Ace";
   }
 }
 
-console.log(sum);
-
-displayPlayerScore = document.createElement("h1");
-let playerCurrentScore = document.querySelector(".wager");
-playerCurrentScore.appendChild(displayPlayerScore);
-
 function updatePlayerScore() {
   displayPlayerScore.innerText = sum;
+
+  if (sum >= 21) {
+    playerEnd();
+  } else if (sum >= 16) {
+    renderUserStand();
+  }
 }
+
+function playerEnd() {
+  displayPlayerScore.innerText = sum + " you lose!";
+  userHit.remove();
+  userStand.remove();
+}
+
+function updateDealerScore() {
+  displayDealerScore.innerText = dealerSum;
+}
+
+function userStartingHand() {
+  selectRandomCard();
+  currentcard = cardSuite + "---" + cardType;
+  calculateValue();
+  updatePlayerScore();
+  renderUserNewCard();
+}
+
+function dealerStartingHand() {
+  selectRandomCard();
+  currentcard = cardSuite + "---" + cardType;
+  calculateDealerValue();
+  updateDealerScore();
+  renderDealerNewCard();
+}
+
+function gameStart() {
+  userStartingHand();
+  userStartingHand();
+  dealerStartingHand();
+  renderUserHitButton();
+}
+gameStart();
+
+// if (sum < 15) {
+//   renderUserHitButton();
+// }
