@@ -103,106 +103,6 @@ let dealerCurrentScore = document.querySelector(".dealerhand");
 dealerCurrentScore.appendChild(displayDealerScore);
 displayDealerScore.innerText = " ";
 
-function calculateValue() {
-  if (cardType === "Jack" || cardType === "Queen" || cardType === "King") {
-    newCardType = 10;
-    sum += newCardType;
-    console.log("PICTURE CONVERTED!");
-    console.log(sum);
-  } else if (cardType === "Ace") {
-    newCardType = 1;
-    sum += newCardType;
-    console.log("ACE CONVERTED!");
-    console.log(sum);
-  } else {
-    sum += cardType;
-    console.log(sum);
-  }
-  return sum;
-}
-
-function calculateDealerValue() {
-  if (cardType === "Jack" || cardType === "Queen" || cardType === "King") {
-    newCardType = 10;
-    dealerSum += newCardType;
-    console.log("PICTURE CONVERTED!");
-    console.log(dealerSum);
-  } else if (cardType === "Ace") {
-    newCardType = 1;
-    dealerSum += 1;
-    console.log("ACE CONVERTED!");
-    console.log(dealerSum);
-  } else {
-    dealerSum += cardType;
-    console.log(dealerSum);
-  }
-  return dealerSum;
-}
-
-function renderUserHitButton() {
-  let addCardToUser = document.querySelector(".controlButton");
-  userHit = document.createElement("button");
-  addCardToUser.appendChild(userHit);
-  userHit.innerText = "HIT";
-  addCardToUser.addEventListener("click", dealToUser);
-}
-// ^ call this function to allow user to hit
-
-function dealToUser() {
-  selectRandomCard();
-  currentcard = cardSuite + "---" + cardType;
-  calculateValue();
-  renderUserNewCard();
-  updatePlayerScore();
-}
-
-function renderUserStand() {
-  let userStopCardDraw = document.querySelector(".controlButton2");
-  userStand = document.createElement("button");
-  userStopCardDraw.appendChild(userStand);
-  userStand.innerText = "STAND";
-  userStand.addEventListener("click", dealerTurn);
-  userStand.addEventListener("click", removeHit);
-}
-
-function removeHit() {
-  userHit.remove();
-}
-
-// can add intermediatry to switch off user hit button + start function to keep running dealerTurn();
-// until dealerSum > Sum , player lose or dealer Sum > 21 player wins
-
-function dealerTurn() {
-  selectRandomCard();
-  currentcard = cardSuite + "---" + cardType;
-  calculateDealerValue();
-  updateDealerScore();
-  renderDealerNewCard();
-}
-
-// ^ call this function to deal card to user
-function dealToDealer() {
-  selectRandomCard();
-  currentcard = cardSuite + "---" + cardType;
-  calculateDealerValue();
-  updateDealerScore();
-  renderDealerNewCard();
-}
-// ^ call this function to deal card to dealer
-function renderUserNewCard() {
-  newcard = document.createElement("h3");
-  let newCardUser = document.querySelector(".userhand");
-  newCardUser.appendChild(newcard);
-  newcard.innerText = currentcard; //<-- update this number to card dealt
-}
-
-function renderDealerNewCard() {
-  newcard = document.createElement("h3");
-  let newCardUser = document.querySelector(".dealerhand");
-  newCardUser.appendChild(newcard);
-  newcard.innerText = currentcard; //<-- update this number to card dealt
-}
-
 function selectRandomCard() {
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -233,13 +133,137 @@ function selectRandomCard() {
   }
 }
 
+function renderUserHitButton() {
+  let addCardToUser = document.querySelector(".controlButton");
+  userHit = document.createElement("button");
+  addCardToUser.appendChild(userHit);
+  userHit.innerText = "HIT";
+  addCardToUser.addEventListener("click", dealToUser);
+}
+
+function renderUserStand() {
+  let userStopCardDraw = document.querySelector(".controlButton2");
+  userStand = document.createElement("button");
+  console.log("Stand Button Generated");
+  userStopCardDraw.appendChild(userStand);
+  userStand.innerText = "STAND";
+  userStand.addEventListener("click", dealerTurn);
+  userStand.addEventListener("click", removeHit);
+}
+// ^ call this function to allow user to hit
+function removeHit() {
+  userHit.remove();
+}
+
+function dealToUser() {
+  selectRandomCard();
+  currentcard = cardSuite + "---" + cardType;
+  calculateValue();
+  renderUserNewCard();
+  updatePlayerScore();
+  checkPlayerWinLose();
+}
+
+function calculateValue() {
+  if (cardType === "Jack" || cardType === "Queen" || cardType === "King") {
+    newCardType = 10;
+    sum += newCardType;
+    console.log("PICTURE CONVERTED!");
+    console.log(sum);
+  } else if (cardType === "Ace") {
+    newCardType = 1;
+    sum += newCardType;
+    console.log("ACE CONVERTED!");
+    console.log(sum);
+  } else {
+    sum += cardType;
+    console.log(sum);
+  }
+  return sum;
+}
+
+function renderUserNewCard() {
+  newcard = document.createElement("h3");
+  let newCardUser = document.querySelector(".userhand");
+  newCardUser.appendChild(newcard);
+  newcard.innerText = currentcard; //<-- update this number to card dealt
+}
+
 function updatePlayerScore() {
   displayPlayerScore.innerText = sum;
 
-  if (sum >= 21) {
+  if (sum > 21) {
     playerEnd();
-  } else if (sum >= 16) {
+  }
+}
+
+function checkPlayerWinLose() {
+  if (sum > 16 && sum < 22) {
     renderUserStand();
+  } else if (userStand > 22) {
+    userStand.remove();
+  }
+}
+// can add intermediatry to switch off user hit button + start function to keep running dealerTurn();
+// until dealerSum > Sum , player lose or dealer Sum > 21 player wins
+
+function dealerTurn() {
+  selectRandomCard();
+  currentcard = cardSuite + "---" + cardType;
+  calculateDealerValue();
+  updateDealerScore();
+  renderDealerNewCard();
+  checkDealerWinLose();
+  userStand.remove();
+  console.log("dealer sum" + dealerSum);
+}
+// ^ call this function to deal card to user
+
+function calculateDealerValue() {
+  if (cardType === "Jack" || cardType === "Queen" || cardType === "King") {
+    newCardType = 10;
+    dealerSum += newCardType;
+    console.log("PICTURE CONVERTED!");
+    console.log(dealerSum);
+  } else if (cardType === "Ace") {
+    newCardType = 1;
+    dealerSum += 1;
+    console.log("ACE CONVERTED!");
+    console.log(dealerSum);
+  } else {
+    dealerSum += cardType;
+    console.log(dealerSum);
+  }
+  return dealerSum;
+}
+
+function dealToDealer() {
+  selectRandomCard();
+  currentcard = cardSuite + "---" + cardType;
+  calculateDealerValue();
+  updateDealerScore();
+  renderDealerNewCard();
+}
+// ^ call this function to deal card to dealer
+
+function renderDealerNewCard() {
+  newcard = document.createElement("h3");
+  let newCardUser = document.querySelector(".dealerhand");
+  newCardUser.appendChild(newcard);
+  newcard.innerText = currentcard; //<-- update this number to card dealt
+}
+
+function updateDealerScore() {
+  displayDealerScore.innerText = dealerSum;
+}
+
+function checkDealerWinLose() {
+  if (dealerSum <= sum) {
+    dealerTurn();
+  } else if (dealerSum > 21) {
+    dealerEnd();
+  } else if (dealerSum > sum) {
+    playerEnd();
   }
 }
 
@@ -249,18 +273,24 @@ function playerEnd() {
   userStand.remove();
 }
 
-function updateDealerScore() {
-  displayDealerScore.innerText = dealerSum;
+function playerEndBlackJack() {
+  displayPlayerScore.innerText = "blackjack! you win";
+}
+
+function dealerEnd() {
+  displayPlayerScore.innerText = sum + "you win!";
+  userHit.remove();
 }
 
 function userStartingHand() {
   selectRandomCard();
+  checkPictureAce();
+  // checkBlackJack();
   currentcard = cardSuite + "---" + cardType;
   calculateValue();
   updatePlayerScore();
   renderUserNewCard();
 }
-
 function dealerStartingHand() {
   selectRandomCard();
   currentcard = cardSuite + "---" + cardType;
@@ -269,11 +299,41 @@ function dealerStartingHand() {
   renderDealerNewCard();
 }
 
+function checkPictureAce() {
+  if (cardType === "King" || cardType === "Queen" || cardType === "Jack") {
+    userHand.push(cardType);
+  } else if (cardType === 1) {
+    cardType = "Ace";
+    userHand.push(cardType);
+  }
+  console.log(userHand);
+}
+
+function checkBlackJack() {
+  let x = userHand[0];
+  let y = userHand[1];
+
+  if ((x === "King" || x === "Queen" || x === "Jack") && y === "Ace") {
+    console.log("BlackJack!");
+    playerEndBlackJack();
+  } else if ((y === "King" || y === "Queen" || y === "Jack") && x === "Ace") {
+    console.log("BlackJack!");
+    playerEndBlackJack();
+  } else {
+    renderUserHitButton();
+  }
+}
+
 function gameStart() {
   userStartingHand();
   userStartingHand();
   dealerStartingHand();
-  renderUserHitButton();
+  checkBlackJack(); //Check for user blackjack else render userhit
+  // renderUserHitButton();
+
+  if (sum > 16 && sum < 22) {
+    renderUserStand();
+  }
 }
 gameStart();
 
