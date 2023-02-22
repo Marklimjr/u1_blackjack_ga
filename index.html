@@ -9,33 +9,40 @@
     <link rel="stylesheet" href="style.css"> 
 </head> 
 <body>
-    <div>
-        <!-- <h1>CASH IN</h1>
-        <h4 >Current Balance : <h4 id="currentBalance"> </h4></h4>
-        <br> -->
-    
-<!-- <select name="cashIn" id="cashIn">
-  <option value= 300 >300</option>
-  <option value= 500 >500</option>
-  <option value= 1000 >1000</option>
-</select>
-<input id="cashInSubmit" type="submit"> -->
-<br>
+    <h4 class="currentBalance" >CURRENT BALANCE : 
+        <h4 class="currentBalance" id="currentBalanceUpdate"> 0 </h4>
+    </h4>
+    <div class="cashInPage">
+        <h1 >CASH IN</h1>
+
+        <select name="cashIn" id="cashIn">
+            <option value= 300 >300</option>
+            <option value= 500 >500</option>
+            <option value= 1000 >1000</option>
+          </select>
+          <input id="cashInSubmit" type="submit">
+    </div>
+      <br>
     </div>
     <br>
-    <div class="wager">
-        <!-- <h5 id="wagerShowHere">Current Wager</h5> -->
-    </div>
-    
+<div class="wager">
+<h4 id="wagerShowHere">Current Wager</h4>
+</div>
+<div class="mainGameWager"></div>
+<div class="mainGame">
+    <div>
     <div class="controlButton"></div>
     <br>
     <div class="controlButton2"></div>
     <div class="userhand">
-    
     </div>
 
     <div class="dealerhand">
 
     </div>
+</div>
+<div id ="playAgain"></div>
+
+
 </body>
 </html>

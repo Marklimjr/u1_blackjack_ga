@@ -1,23 +1,66 @@
-.button {
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-  }
+.cashInPage {
+  font-family: "Futura", Times, serif;
+  text-align: center;
+  position:absolute;
+  margin:auto;
+  top: 30%;
+  left: 45%;
 
-  .button1 {border-radius:50%;}
+}
+
+.currentBalance {
+  font-family: "Futura", Times, serif;
+  position: fixed;
+  top: 5%;
+  right: 5%;
+}
+
+#currentBalanceUpdate {
+  top: 10%;
+  right: 10%;
+}
+
+.wager {
+  font-family: "Futura", Times, serif;
+  display:none;
+  text-align: center;
+  position:absolute;
+  margin:auto;
+  top: 30%;
+  left: 45%;  
+}
 
 #currentBalance {
     text-align: right;
     display: inline-block;
+    padding-right: 10%;
 
+}
+
+.mainGameWager {
+  font-family: "Futura", Times, serif;
+  text-align: left;
+  display: inline-block;
+  padding-left: 10%;
 }
 
 .userhand {
-  display: inline-block
+  display: inline-block;
+  left : 30%;
 }
+
+.mainGame {
+  font-family: "Futura", Times, serif;
+  display:block;
+  text-align: center;
+}
+
+
+
+
+
+
+
+/* #cashIn{
+  display:none;
+} */
