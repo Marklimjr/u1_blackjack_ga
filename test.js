@@ -46,6 +46,7 @@ function renderWager() {
   let wagerSubmitButton = document.createElement("Button");
   let wagerSubmitButtonLocation = document.querySelector(".wager");
   wagerSubmitButton.innerText = "Bet!";
+  wagerSubmitButton.setAttribute("id", "betButton");
   wagerSubmitButtonLocation.appendChild(wagerSubmitButton);
   wagerSubmitButton.addEventListener("click", submitBet);
 
@@ -107,8 +108,6 @@ function renderWager() {
   }
 }
 
-// renderWager();
-
 // GAME MAIN FUNCTION
 function runMain() {
   let cardDeck = [
@@ -119,17 +118,37 @@ function runMain() {
   ];
 
   let userHand = [];
-  let dealerHand = [];
+  // let dealerHand = [];
   let sum = 0;
   let dealerSum = 0;
 
+  mainGame = document.querySelector(".mainGame");
+
+  let controlButton = document.createElement("div");
+  controlButton.setAttribute("class", "controlButton");
+  mainGame.appendChild(controlButton);
+
+  let controlButton2 = document.createElement("div");
+  controlButton2.setAttribute("class", "controlButton2");
+  mainGame.appendChild(controlButton2);
+
+  let userhand = document.createElement("div");
+  userhand.setAttribute("class", "userhand");
+  mainGame.appendChild(userhand);
+
+  let dealerhand = document.createElement("div");
+  dealerhand.setAttribute("class", "dealerhand");
+  mainGame.appendChild(dealerhand);
+
   displayPlayerScore = document.createElement("h1");
   let playerCurrentScore = document.querySelector(".userhand");
+  displayPlayerScore.setAttribute("id", "displayPlayerScore");
   playerCurrentScore.appendChild(displayPlayerScore);
   displayPlayerScore.innerText = " ";
 
   displayDealerScore = document.createElement("h1");
   let dealerCurrentScore = document.querySelector(".dealerhand");
+  displayDealerScore.setAttribute("id", "displayDealerScore");
   dealerCurrentScore.appendChild(displayDealerScore);
   displayDealerScore.innerText = " ";
 
@@ -301,15 +320,18 @@ function runMain() {
 
   function playerEnd() {
     displayPlayerScore.innerText = sum + " you lose!";
+    playAgain();
+    updateCurrentBalance();
     userHit.remove();
     userStand.remove();
+    console.log(currentBalanceInt);
   } // Lose page for PLAYER
 
   function playerEndBlackJack() {
     displayPlayerScore.innerText = "blackjack! you win";
-    currentBalanceInt + currentRoundWager;
+    currentBalanceInt = currentBalanceInt + currentRoundWager * 2;
     updateCurrentBalance();
-    WinPlayAgain();
+    playAgain();
   } // Blackjack win page for PLAYER
 
   function dealerEnd() {
@@ -317,7 +339,7 @@ function runMain() {
     currentBalanceInt = currentBalanceInt + currentRoundWager * 2;
     console.log(currentBalanceInt);
     updateCurrentBalance();
-    WinPlayAgain();
+    playAgain();
     userHit.remove();
   } // Win page for PLAYER
 
@@ -376,7 +398,7 @@ function runMain() {
   } // Launches starting hands for game
   gameStart();
 
-  function WinPlayAgain() {
+  function playAgain() {
     let playAgain = document.createElement("Button");
     playAgain.setAttribute("id", "playAgainButton");
     playAgain.innerText = "Play Again!";
@@ -384,9 +406,42 @@ function runMain() {
     playAgainLocation.appendChild(playAgain);
     playAgain.addEventListener("click", returnToWager);
 
+    //remove all elements that was created from wager page onwards
     function returnToWager() {
-      document.querySelector(".mainGame").style.display = "none";
+      // document.querySelector(".mainGame").style.display = "none";
       document.querySelector(".wager").style.display = "block";
+
+      const currentRoundWagerDisplay = document.querySelector(
+        "#currentRoundWagerDisplay"
+      );
+      currentRoundWagerDisplay.remove();
+      const button25 = document.getElementById("25");
+      button25.remove();
+      const button50 = document.getElementById("50");
+      button50.remove();
+      const button75 = document.getElementById("75");
+      button75.remove();
+      const button100 = document.getElementById("100");
+      button100.remove();
+      const betButton = document.getElementById("betButton");
+      betButton.remove();
+      const gameWager = document.getElementById("gameWager");
+      gameWager.remove();
+      const controlButton = document.querySelector(".controlButton");
+      controlButton.remove();
+      const controlButton2 = document.querySelector(".controlButton2");
+      controlButton2.remove();
+      const userhand = document.querySelector(".userhand");
+      userhand.remove();
+      const dealerhand = document.querySelector(".dealerhand");
+      dealerhand.remove();
+      const playAgainButton = document.getElementById("playAgainButton");
+      playAgainButton.remove();
+
+      // const displayPlayerScore = document.getElementById("displayPlayerScore");
+      // displayPlayerScore.remove();
+      // const displayDealerScore = document.getElementById("displayDealerScore");
+      // displayDealerScore.remove();
 
       renderWager();
     }
