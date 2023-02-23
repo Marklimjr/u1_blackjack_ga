@@ -1,4 +1,4 @@
-// TEST WAGER FUNCTION
+//Initialize Cash in
 let currentBalance = 0;
 let currentBalanceInt = 0;
 let currentRoundWager = 0;
@@ -186,7 +186,7 @@ function runMain() {
     } else if (cardType === 0) {
       cardType = "Ace";
     }
-  } // this function share with user and dealer
+  }
 
   function renderUserHitButton() {
     let addCardToUser = document.querySelector(".controlButton");
@@ -275,12 +275,10 @@ function runMain() {
     if (cardType === "Jack" || cardType === "Queen" || cardType === "King") {
       newCardType = 10;
       dealerSum += newCardType;
-      console.log("PICTURE CONVERTED!");
       console.log(dealerSum);
     } else if (cardType === "Ace") {
       newCardType = 1;
       dealerSum += 1;
-      console.log("ACE CONVERTED!");
       console.log(dealerSum);
     } else {
       dealerSum += cardType;
@@ -389,13 +387,13 @@ function runMain() {
     userStartingHand();
     userStartingHand();
     dealerStartingHand();
-    checkBlackJack(); //Check for user blackjack else render userhit
-    // renderUserHitButton();
+    checkBlackJack();
 
     if (sum > 16 && sum < 22) {
       renderUserStand();
     }
   } // Launches starting hands for game
+
   gameStart();
 
   function playAgain() {
@@ -446,7 +444,4 @@ function runMain() {
       renderWager();
     }
   }
-
-  // dealer stand on ____
-  // wagering
 }
