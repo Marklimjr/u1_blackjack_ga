@@ -183,7 +183,7 @@ function runMain() {
       cardType = "Queen";
     } else if (cardType === 13) {
       cardType = "King";
-    } else if (cardType === 0) {
+    } else if (cardType === 1) {
       cardType = "Ace";
     }
   }
@@ -287,13 +287,13 @@ function runMain() {
     return dealerSum;
   } // calculate and convert picture card values for DEALER
 
-  function dealToDealer() {
-    selectRandomCard();
-    currentcard = cardSuite + "---" + cardType;
-    calculateDealerValue();
-    updateDealerScore();
-    renderDealerNewCard();
-  } // give DEALER new card
+  // function dealToDealer() {
+  //   selectRandomCard();
+  //   currentcard = cardSuite + "---" + cardType;
+  //   calculateDealerValue();
+  //   updateDealerScore();
+  //   renderDealerNewCard();
+  // } // give DEALER new card
 
   function renderDealerNewCard() {
     newcard = document.createElement("h3");
