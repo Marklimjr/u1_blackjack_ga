@@ -361,9 +361,12 @@ function runMain() {
   function checkPictureAce() {
     if (cardType === "King" || cardType === "Queen" || cardType === "Jack") {
       userHand.push(cardType);
-    } else if (cardType === 1) {
-      cardType = "Ace";
+      console.log("TEST 1" + userHand);
+    }
+
+    if (cardType === "Ace") {
       userHand.push(cardType);
+      console.log("TEST ACE" + userHand);
     }
     console.log(userHand);
   } // Checking PLAYER starting hand for Picture and Aces
